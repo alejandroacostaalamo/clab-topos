@@ -1,0 +1,467 @@
+{
+  "name": "anycast-test",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-616bd585aaf3",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "2001:172:20:20::/64",
+        "ipv6-gw": "2001:172:20:20::1",
+        "mtu": 1500,
+        "external-access": true
+      }
+    }
+  },
+  "nodes": {
+    "cliente": {
+      "index": "0",
+      "shortname": "cliente",
+      "longname": "clab-anycast-test-cliente",
+      "fqdn": "cliente.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/cliente",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.3",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::3",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/cliente",
+        "clab-node-name": "cliente",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    },
+    "frr1": {
+      "index": "1",
+      "shortname": "frr1",
+      "longname": "clab-anycast-test-frr1",
+      "fqdn": "frr1.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr1",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr1",
+        "clab-node-name": "frr1",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    },
+    "frr2": {
+      "index": "2",
+      "shortname": "frr2",
+      "longname": "clab-anycast-test-frr2",
+      "fqdn": "frr2.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr2",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr2",
+        "clab-node-name": "frr2",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    },
+    "frr3": {
+      "index": "3",
+      "shortname": "frr3",
+      "longname": "clab-anycast-test-frr3",
+      "fqdn": "frr3.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr3",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr3",
+        "clab-node-name": "frr3",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    },
+    "frr4": {
+      "index": "4",
+      "shortname": "frr4",
+      "longname": "clab-anycast-test-frr4",
+      "fqdn": "frr4.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr4",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr4",
+        "clab-node-name": "frr4",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    },
+    "frr5": {
+      "index": "5",
+      "shortname": "frr5",
+      "longname": "clab-anycast-test-frr5",
+      "fqdn": "frr5.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr5",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr5",
+        "clab-node-name": "frr5",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    },
+    "frr6": {
+      "index": "6",
+      "shortname": "frr6",
+      "longname": "clab-anycast-test-frr6",
+      "fqdn": "frr6.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr6",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/frr6",
+        "clab-node-name": "frr6",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    },
+    "serverA": {
+      "index": "7",
+      "shortname": "serverA",
+      "longname": "clab-anycast-test-serverA",
+      "fqdn": "serverA.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/serverA",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.6",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::6",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/serverA",
+        "clab-node-name": "serverA",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    },
+    "serverB": {
+      "index": "8",
+      "shortname": "serverB",
+      "longname": "clab-anycast-test-serverB",
+      "fqdn": "serverB.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/serverB",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.4",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::4",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/serverB",
+        "clab-node-name": "serverB",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    },
+    "serverC": {
+      "index": "9",
+      "shortname": "serverC",
+      "longname": "clab-anycast-test-serverC",
+      "fqdn": "serverC.anycast-test.io",
+      "group": "",
+      "labdir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/serverC",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.0.0",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.2",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::2",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/alejandro/clab-topo-anycast/clab-anycast-test/serverC",
+        "clab-node-name": "serverC",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/alejandro/clab-topo-anycast/anycast.yml",
+        "containerlab": "anycast-test"
+      },
+      "port-bindings": [
+      ]
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "cliente",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:97:56:6b",
+        "peer": "z"
+      },
+      "z": {
+        "node": "frr1",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:6f:5a:ca",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr1",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:5c:c7:e0",
+        "peer": "z"
+      },
+      "z": {
+        "node": "frr2",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:07:03:8a",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr1",
+        "interface": "eth3",
+        "mac": "aa:c1:ab:79:c6:24",
+        "peer": "z"
+      },
+      "z": {
+        "node": "frr3",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:a0:ea:6c",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr2",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:20:3f:1c",
+        "peer": "z"
+      },
+      "z": {
+        "node": "serverA",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:10:ad:cd",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr2",
+        "interface": "eth3",
+        "mac": "aa:c1:ab:8a:1e:1e",
+        "peer": "z"
+      },
+      "z": {
+        "node": "frr3",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:bd:2f:65",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr3",
+        "interface": "eth3",
+        "mac": "aa:c1:ab:c9:b2:87",
+        "peer": "z"
+      },
+      "z": {
+        "node": "frr4",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:43:3e:c0",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr3",
+        "interface": "eth4",
+        "mac": "aa:c1:ab:f5:c7:0e",
+        "peer": "z"
+      },
+      "z": {
+        "node": "frr5",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:7d:9e:01",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr4",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:39:d5:5a",
+        "peer": "z"
+      },
+      "z": {
+        "node": "frr5",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:c7:5f:98",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr4",
+        "interface": "eth3",
+        "mac": "aa:c1:ab:60:b1:3e",
+        "peer": "z"
+      },
+      "z": {
+        "node": "serverB",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:46:b0:be",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr5",
+        "interface": "eth3",
+        "mac": "aa:c1:ab:3f:49:a1",
+        "peer": "z"
+      },
+      "z": {
+        "node": "frr6",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:86:fe:0f",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "frr6",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:e8:cb:30",
+        "peer": "z"
+      },
+      "z": {
+        "node": "serverC",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:31:dc:3b",
+        "peer": "a"
+      }
+    }
+  ]
+}

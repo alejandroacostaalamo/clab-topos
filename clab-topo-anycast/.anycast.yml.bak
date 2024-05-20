@@ -1,0 +1,154 @@
+name: anycast-test
+topology:
+
+  kinds:
+    linux:
+      image: quay.io/frrouting/frr:10.0.0
+      image-pull-policy: Always
+
+  nodes:
+  # Nodos Cliente y Servidores
+    cliente:
+      kind: linux
+      #network-mode: none
+      binds:
+        - configs/cliente.frr.conf:/etc/frr/frr.conf
+        - configs/cliente.daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:1::2/64"
+        - "route add -A inet6 default gw 2001:db8:1::1"
+
+    serverA:
+      kind: linux
+      #network-mode: none
+      binds:
+        - configs/serverA.frr.conf:/etc/frr/frr.conf
+        - configs/serverA.daemons.cfg:/etc/frr/daemons
+        - configs/indexA.html://var/www/localhost/htdocs/index.html
+        - configs/lighttpd.conf:/tmp/lighttpd.conf
+      exec:
+        - "apk add lighttpd"
+        - "ip address add dev eth1 2001:db8:2a::a/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+        - "route add -A inet6 default gw 2001:db8:2a::2"
+        - "lighttpd -f /tmp/lighttpd.conf"
+
+    serverB:
+      kind: linux
+      #network-mode: none
+      binds:
+        - configs/serverB.frr.conf:/etc/frr/frr.conf
+        - configs/serverB.daemons.cfg:/etc/frr/daemons
+        - configs/indexB.html://var/www/localhost/htdocs/index.html
+        - configs/lighttpd.conf:/tmp/lighttpd.conf
+      exec:
+        - "apk add lighttpd"
+        - "ip address add dev eth1 2001:db8:4b::b/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+        - "route add -A inet6 default gw 2001:db8:4b::4"
+        - "lighttpd -f /tmp/lighttpd.conf"
+
+    serverC:
+      kind: linux
+      #network-mode: none
+      binds:
+        - configs/serverC.frr.conf:/etc/frr/frr.conf
+        - configs/serverC.daemons.cfg:/etc/frr/daemons
+        - configs/indexC.html:/var/www/localhost/htdocs/index.html
+        - configs/lighttpd.conf:/tmp/lighttpd.conf
+      exec:
+        - "apk add lighttpd"
+        - "ip address add dev eth1 2001:db8:6c::c/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+        - "route add -A inet6 default gw 2001:db8:6c::6"
+        - "lighttpd -f /tmp/lighttpd.conf"
+
+  # Nodos Routers FRR
+
+    frr1:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/frr1.conf:/etc/frr/frr.conf
+        - configs/frr1.daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:1::1/64"
+        - "ip address add dev eth2 2001:db8:12::1/64"
+        - "ip address add dev eth3 2001:db8:13::1/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+    frr2:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/frr2.conf:/etc/frr/frr.conf
+        - configs/frr2.daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:12::2/64"
+        - "ip address add dev eth2 2001:db8:2a::2/64"
+        - "ip address add dev eth3 2001:db8:23::2/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+    frr3:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/frr3.conf:/etc/frr/frr.conf
+        - configs/frr3.daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:13::3/64"
+        - "ip address add dev eth2 2001:db8:23::3/64"
+        - "ip address add dev eth3 2001:db8:34::3/64"
+        - "ip address add dev eth4 2001:db8:35::3/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+    frr4:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/frr4.conf:/etc/frr/frr.conf
+        - configs/frr4.daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:34::4/64"
+        - "ip address add dev eth2 2001:db8:45::4/64"
+        - "ip address add dev eth3 2001:db8:4b::4/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+
+    frr5:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/frr5.conf:/etc/frr/frr.conf
+        - configs/frr5.daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:35::5/64"
+        - "ip address add dev eth2 2001:db8:45::5/64"
+        - "ip address add dev eth3 2001:db8:56::5/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+    frr6:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/frr6.conf:/etc/frr/frr.conf
+        - configs/frr6.daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:56::6/64"
+        - "ip address add dev eth2 2001:db8:6c::6/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+  links:
+  # Enlaces entre nodos FRR
+    - endpoints: ["cliente:eth1", "frr1:eth1"]
+    - endpoints: ["frr1:eth2", "frr2:eth1"]
+    - endpoints: ["frr1:eth3", "frr3:eth1"]
+    - endpoints: ["frr2:eth2", "serverA:eth1"]
+    - endpoints: ["frr2:eth3", "frr3:eth2"]
+    - endpoints: ["frr3:eth3", "frr4:eth1"]
+    - endpoints: ["frr3:eth4", "frr5:eth1"]
+    - endpoints: ["frr4:eth2", "frr5:eth2"]
+    - endpoints: ["frr4:eth3", "serverB:eth1"]
+    - endpoints: ["frr5:eth3", "frr6:eth1"]
+    - endpoints: ["frr6:eth2", "serverC:eth1"]
+

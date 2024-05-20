@@ -1,0 +1,29 @@
+all:
+  vars:
+    # The generated inventory is assumed to be used from the clab host.
+    # Hence no http proxy should be used. Therefore we make sure the http
+    # module does not attempt using any global http proxy.
+    ansible_httpapi_use_proxy: false
+  children:
+    linux:
+      hosts:
+        clab-anycast-test-cliente:
+          ansible_host: 172.20.20.3
+        clab-anycast-test-frr1:
+          ansible_host: 
+        clab-anycast-test-frr2:
+          ansible_host: 
+        clab-anycast-test-frr3:
+          ansible_host: 
+        clab-anycast-test-frr4:
+          ansible_host: 
+        clab-anycast-test-frr5:
+          ansible_host: 
+        clab-anycast-test-frr6:
+          ansible_host: 
+        clab-anycast-test-serverA:
+          ansible_host: 172.20.20.6
+        clab-anycast-test-serverB:
+          ansible_host: 172.20.20.4
+        clab-anycast-test-serverC:
+          ansible_host: 172.20.20.2
