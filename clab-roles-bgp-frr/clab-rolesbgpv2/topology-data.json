@@ -1,0 +1,224 @@
+{
+  "name": "rolesbgpv2",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-616bd585aaf3",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "2001:172:20:20::/64",
+        "ipv6-gw": "2001:172:20:20::1",
+        "mtu": 1500,
+        "external-access": true
+      }
+    }
+  },
+  "nodes": {
+    "R1": {
+      "index": "0",
+      "shortname": "R1",
+      "longname": "clab-rolesbgpv2-R1",
+      "fqdn": "R1.rolesbgpv2.io",
+      "group": "",
+      "labdir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R1",
+      "kind": "linux",
+      "image": "apecloud/frr:9.0.2",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R1",
+        "clab-node-name": "R1",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/guillermo/roles-bgp-frr/roles-bgp-frr.yml",
+        "containerlab": "rolesbgpv2"
+      },
+      "port-bindings": [
+      ]
+    },
+    "R2": {
+      "index": "1",
+      "shortname": "R2",
+      "longname": "clab-rolesbgpv2-R2",
+      "fqdn": "R2.rolesbgpv2.io",
+      "group": "",
+      "labdir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R2",
+      "kind": "linux",
+      "image": "apecloud/frr:9.0.2",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R2",
+        "clab-node-name": "R2",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/guillermo/roles-bgp-frr/roles-bgp-frr.yml",
+        "containerlab": "rolesbgpv2"
+      },
+      "port-bindings": [
+      ]
+    },
+    "R3": {
+      "index": "2",
+      "shortname": "R3",
+      "longname": "clab-rolesbgpv2-R3",
+      "fqdn": "R3.rolesbgpv2.io",
+      "group": "",
+      "labdir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R3",
+      "kind": "linux",
+      "image": "apecloud/frr:9.0.2",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R3",
+        "clab-node-name": "R3",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/guillermo/roles-bgp-frr/roles-bgp-frr.yml",
+        "containerlab": "rolesbgpv2"
+      },
+      "port-bindings": [
+      ]
+    },
+    "R4": {
+      "index": "3",
+      "shortname": "R4",
+      "longname": "clab-rolesbgpv2-R4",
+      "fqdn": "R4.rolesbgpv2.io",
+      "group": "",
+      "labdir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R4",
+      "kind": "linux",
+      "image": "apecloud/frr:9.0.2",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R4",
+        "clab-node-name": "R4",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/guillermo/roles-bgp-frr/roles-bgp-frr.yml",
+        "containerlab": "rolesbgpv2"
+      },
+      "port-bindings": [
+      ]
+    },
+    "R5": {
+      "index": "4",
+      "shortname": "R5",
+      "longname": "clab-rolesbgpv2-R5",
+      "fqdn": "R5.rolesbgpv2.io",
+      "group": "",
+      "labdir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R5",
+      "kind": "linux",
+      "image": "apecloud/frr:9.0.2",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "",
+      "mgmt-ipv4-prefix-length": 0,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-616bd585aaf3",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/guillermo/roles-bgp-frr/clab-rolesbgpv2/R5",
+        "clab-node-name": "R5",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/guillermo/roles-bgp-frr/roles-bgp-frr.yml",
+        "containerlab": "rolesbgpv2"
+      },
+      "port-bindings": [
+      ]
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "R2",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:f4:ef:dc",
+        "peer": "z"
+      },
+      "z": {
+        "node": "R1",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:67:ae:20",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "R2",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:55:87:01",
+        "peer": "z"
+      },
+      "z": {
+        "node": "R3",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:70:80:75",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "R2",
+        "interface": "eth3",
+        "mac": "aa:c1:ab:76:c5:4c",
+        "peer": "z"
+      },
+      "z": {
+        "node": "R4",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:43:50:3b",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "R2",
+        "interface": "eth4",
+        "mac": "aa:c1:ab:f9:70:8c",
+        "peer": "z"
+      },
+      "z": {
+        "node": "R5",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:82:64:ae",
+        "peer": "a"
+      }
+    }
+  ]
+}

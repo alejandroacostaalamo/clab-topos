@@ -1,0 +1,75 @@
+name: rolesbgpv2
+
+topology:
+  kinds: 
+    linux:
+      #image: networklessons/frr-ubuntu:latest se queda restarting
+      #image: dieudonnemunganga/frr-image:0.0.7 no se conecta al frr
+      #image: gongnero99/frr:G1.0  revente el frr
+      #image: kathara/frr:latest no se conecta al frr
+      image: apecloud/frr:9.0.2
+
+  nodes:
+
+  ### ROUTERS ###
+
+    R1:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/R1-frr.conf:/etc/frr/frr.conf
+        - configs/R1-frr-daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:12::1/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+    R2: 
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/R2-frr.conf:/etc/frr/frr.conf
+        - configs/R2-frr-daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:12::2/64"
+        - "ip address add dev eth2 2001:db8:23::2/64"
+        - "ip address add dev eth3 2001:db8:24::2/64"
+        - "ip address add dev eth4 2001:db8:25::2/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+    R3:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/R3-frr.conf:/etc/frr/frr.conf
+        - configs/R3-frr-daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:23::3/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+    R4:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/R4-frr.conf:/etc/frr/frr.conf
+        - configs/R4-frr-daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:24::4/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+    R5:
+      kind: linux
+      network-mode: none
+      binds:
+        - configs/R5-frr.conf:/etc/frr/frr.conf
+        - configs/R5-frr-daemons.cfg:/etc/frr/daemons
+      exec:
+        - "ip address add dev eth1 2001:db8:25::5/64"
+        - "sysctl -w net.ipv6.conf.all.forwarding=1"
+
+
+  links:
+    - endpoints: ["R2:eth1", "R1:eth1"]
+    - endpoints: ["R2:eth2", "R3:eth1"]
+    - endpoints: ["R2:eth3", "R4:eth1"]
+    - endpoints: ["R2:eth4", "R5:eth1"]
+
