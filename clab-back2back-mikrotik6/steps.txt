@@ -1,0 +1,44 @@
+En https://rb.gy/158aao estan todos los pasos a seguir
+
+Sugerencia: Tener dos sesiones SSH hacia el servidor containerlab
+
+
+Ejecutar la topologia de ContainerLAB (clab) con el comando:
+- sudo clab dep --reconfigure -t Mikrotik-FRR-back-2-back.yml 
+ 
+Conectarse al Linux FRR con el comando:
+- $ docker exec -it clab-ipv6-ws-R1 bash
+
+En este momento tendremos un prompt similar a:
+- bash-5.1#
+Significa que ya estamos adentro del contedor FRR
+
+Comentario: FRR ya tiene la IP 2001:db8:ffab::1/64 en su interfaz eth1
+
+En Mikrotik hay que hacer la configuración IPv6 (la interfaz que ve hacia el FRR)
+
+Para entrar al Mikrotik (hay que esperar unos 2 minutos):
+usuario y clave: admin/admin
+telnet 172.20.20.11 5000 #para entrar vía vty)
+o
+ssh -l admin 172.20.20.11
+o
+telnet 172.20.20.11
+
+
+Dentro del Mikrotik es necesario habilitar el paquete de IPv6, actualmente está deshabilitado:
+[admin@R2] > /system package print
+/system package enable ipv6
+/system reboot
+
+--- esperemos unos 30 seg ---
+
+Luego hay que asignar la direccion a ether3
+/ipv6 address add address=2001:db8:ffab::2/64 interface=ether3
+
+Probar conectividad entre FRR y Mikrotik
+Desde el Mikrotik:
+ping 2001:db8:ffab::1 (debe haber echo reply)
+
+
+
