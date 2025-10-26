@@ -38,7 +38,7 @@ Scenario:
 – Multiple paths in BGP, best one selected based on policy	
 - Using BGP ADDPATH in one router to make it more educational
 
-• Benefits:	
+• Benefits of anycasting:	
 – Increased reliability	
 – Traffic Engineering
 – Improved performance	
