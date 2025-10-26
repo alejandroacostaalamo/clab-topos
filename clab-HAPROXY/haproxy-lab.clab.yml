@@ -1,0 +1,188 @@
+name: haproxy-ipv6-lab
+
+topology:
+  nodes:
+    # Router + HAProxy (nodo central) - Con bridges
+    router-haproxy:
+      kind: linux
+      image: ubuntu:22.04
+      network-mode: bridge
+      exec:
+        # Instalar paquetes necesarios
+        - apt-get update
+        - apt-get install -y iproute2 net-tools tcpdump curl wget nano
+        - apt-get install -y haproxy bridge-utils
+        - apt-get install -y vim-tiny
+        - apt-get install -y iputils-ping
+        
+        # Habilitar forwarding
+        - sysctl -w net.ipv4.ip_forward=1
+        - sysctl -w net.ipv6.conf.all.forwarding=1
+        
+        # Crear bridge para BACKEND
+        - brctl addbr br-backend
+        - ip link set br-backend up
+        
+        # Crear bridge para FRONTEND  
+        - brctl addbr br-frontend
+        - ip link set br-frontend up
+        
+        # Conectar interfaces físicas a los bridges
+        - brctl addif br-backend eth1
+        - brctl addif br-backend eth2
+        - brctl addif br-backend eth3
+        
+        - brctl addif br-frontend eth4
+        - brctl addif br-frontend eth5
+        
+        # Configurar IPs en los bridges
+        # BACKEND - Solo IPv6
+        - ip addr add 2001:db8:100::1/64 dev br-backend
+        
+        # FRONTEND - Dual Stack
+        - ip addr add 192.168.200.1/24 dev br-frontend
+        - ip addr add 2001:db8:200::1/64 dev br-frontend
+        
+        # Mostrar configuración
+        - echo "=== Bridges creados ==="
+        - brctl show
+        - echo "=== Configuración de IPs ==="
+        - ip addr show br-backend
+        - ip addr show br-frontend
+        - echo "=== Estado de interfaces ==="
+        - ip link show
+
+    # BACKEND - Servidores IPv6 Only (misma subred)
+    web1-backend:
+      kind: linux
+      image: ubuntu:22.04
+      exec:
+        - apt-get update
+        - apt-get install -y iproute2 net-tools curl wget apache2
+        - apt-get install -y vim-tiny
+        - apt-get install -y iputils-ping
+        
+        # Configurar red IPv6 - Misma subred backend
+        - ip addr add 2001:db8:100::10/64 dev eth1
+        - ip route add default via 2001:db8:100::1
+        
+        # Configurar Apache
+        - echo "ServerName web1-backend" >> /etc/apache2/apache2.conf
+        - sed -i 's/Listen 80/Listen [2001:db8:100::10]:80/' /etc/apache2/ports.conf
+        - echo "<html><body><h1>Servidor Web 1 - Backend IPv6</h1><p>2001:db8:100::10</p></body></html>" > /var/www/html/index.html
+        - systemctl enable apache2
+        - systemctl start apache2
+        
+        # Verificar
+        - echo "=== web1-backend configurado ==="
+        - ip addr show eth1
+        - ip -6 route show
+
+    web2-backend:
+      kind: linux
+      image: ubuntu:22.04
+      exec:
+        - apt-get update
+        - apt-get install -y iproute2 net-tools curl wget apache2
+        - apt-get install -y vim-tiny
+        - apt-get install -y iputils-ping
+        
+        # Configurar red IPv6 - Misma subred backend
+        - ip addr add 2001:db8:100::20/64 dev eth1
+        - ip route add default via 2001:db8:100::1
+        
+        # Configurar Apache
+        - echo "ServerName web2-backend" >> /etc/apache2/apache2.conf
+        - sed -i 's/Listen 80/Listen [2001:db8:100::20]:80/' /etc/apache2/ports.conf
+        - echo "<html><body><h1>Servidor Web 2 - Backend IPv6</h1><p>2001:db8:100::20</p></body></html>" > /var/www/html/index.html
+        - systemctl enable apache2
+        - systemctl start apache2
+        
+        # Verificar
+        - echo "=== web2-backend configurado ==="
+        - ip addr show eth1
+        - ip -6 route show
+
+    ssh-backend:
+      kind: linux
+      image: ubuntu:22.04
+      exec:
+        - apt-get update
+        - apt-get install -y iproute2 net-tools curl wget openssh-server
+        - apt-get install -y vim-tiny
+        - apt-get install -y iputils-ping
+        
+        # Configurar red IPv6 - Misma subred backend
+        - ip addr add 2001:db8:100::30/64 dev eth1
+        - ip route add default via 2001:db8:100::1
+        
+        # Configurar SSH
+        - sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+        - sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 2001:db8:100::30/' /etc/ssh/sshd_config
+        - echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        - echo "root:labpassword" | chpasswd
+        - systemctl enable ssh
+        - systemctl start ssh
+        
+        # Verificar
+        - echo "=== ssh-backend configurado ==="
+        - ip addr show eth1
+        - ip -6 route show
+        - systemctl status ssh
+
+    # FRONTEND - Cliente Dual Stack
+    client-dual:
+      kind: linux
+      image: ubuntu:22.04
+      exec:
+        - apt-get update
+        - apt-get install -y iproute2 net-tools curl wget iputils-ping
+        - apt-get install -y vim-tiny
+        
+        # Configurar Dual Stack - Misma subred frontend
+        - ip addr add 192.168.200.10/24 dev eth1
+        - ip addr add 2001:db8:200::10/64 dev eth1
+        - ip route add default via 192.168.200.1
+        - ip -6 route add default via 2001:db8:200::1
+        
+        # Verificar
+        - echo "=== client-dual configurado ==="
+        - ip addr show eth1
+        - ip route show
+        - ip -6 route show
+
+    # FRONTEND - Cliente IPv4 Only
+    client-ipv4:
+      kind: linux
+      image: ubuntu:22.04
+      exec:
+        - apt-get update
+        - apt-get install -y iproute2 net-tools curl wget iputils-ping
+        - apt-get install -y vim-tiny
+        
+        # Configurar IPv4 Only - Misma subred frontend
+        - ip addr add 192.168.200.20/24 dev eth1
+        - ip route add default via 192.168.200.1
+        
+        # Deshabilitar IPv6
+        - sysctl -w net.ipv6.conf.all.disable_ipv6=1
+        - sysctl -w net.ipv6.conf.default.disable_ipv6=1
+        - sysctl -w net.ipv6.conf.eth1.disable_ipv6=1
+        
+        # Verificar
+        - echo "=== client-ipv4 configurado ==="
+        - ip addr show eth1
+        - ip route show
+        - echo "=== IPv6 deshabilitado ==="
+        - ip -6 addr show eth1
+
+  links:
+    # Conexiones BACKEND - Todos al bridge backend (eth1, eth2, eth3 del router)
+    - endpoints: ["router-haproxy:eth1", "web1-backend:eth1"]
+    - endpoints: ["router-haproxy:eth2", "web2-backend:eth1"] 
+    - endpoints: ["router-haproxy:eth3", "ssh-backend:eth1"]
+    
+    # Conexiones FRONTEND - Todos al bridge frontend (eth4, eth5 del router)
+    - endpoints: ["router-haproxy:eth4", "client-dual:eth1"]
+    - endpoints: ["router-haproxy:eth5", "client-ipv4:eth1"]
+
